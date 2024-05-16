@@ -1,0 +1,70 @@
+//users
+INSERT INTO users (fullName, password, email, phoneNumber, address1, address2, role)
+VALUES 
+('Budi Santoso', '1234', 'budi@example.com', '08123456789', 'Jl. Sudirman No. 123', NULL, 'CUSTOMER'),
+('Anita Wijaya', '1234', 'anita@example.com', '08123456788', 'Jl. Thamrin No. 456', 'Blok A-1', 'SELLER'),
+('Tri Hadi', '1234', 'tri@example.com', '08123456787', 'Jl. Pahlawan No. 789', NULL, 'CUSTOMER'),
+('Dewi Kusuma', '1234', 'dewi@example.com', '08123456786', 'Jl. Diponegoro No. 101', 'Tower B, Lantai 10', 'SELLER'),
+('Agus Setiawan', '1234', 'agus@example.com', '08123456785', 'Jl. Asia Afrika No. 111', NULL, 'CUSTOMER'),
+('Sri Rahayu', '1234', 'sri@example.com', '08123456784', 'Jl. Gatot Subroto No. 222', 'Apartemen Cendana, Lantai 3', 'SELLER'),
+('Nita Anggraeni', '1234', 'nita@example.com', '08123456783', 'Jl. Malioboro No. 333', NULL, 'CUSTOMER'),
+('Dedi Pratama', '1234', 'dedi@example.com', '08123456782', 'Jl. Sudirman No. 444', NULL, 'SELLER'),
+('Lia Susanti', '1234', 'lia@example.com', '08123456781', 'Jl. Pahlawan No. 555', 'Blok C-2', 'CUSTOMER'),
+('Rudi Hermawan', '1234', 'rudi@example.com', '08123456780', 'Jl. Diponegoro No. 666', NULL, 'SELLER'),
+('Maya Sari', '1234', 'maya@example.com', '08123456779', 'Jl. Thamrin No. 777', 'Apartemen Cendana, Lantai 4', 'CUSTOMER'),
+('Eko Nugroho', '1234', 'eko@example.com', '08123456778', 'Jl. Sudirman No. 888', NULL, 'SELLER'),
+('Siti Maulida', '1234', 'siti@example.com', '08123456777', 'Jl. Pahlawan No. 999', NULL, 'CUSTOMER'),
+('Hadi Saputra', '1234', 'hadi@example.com', '08123456776', 'Jl. Gatot Subroto No. 1010', 'Tower D, Lantai 5', 'SELLER'),
+('Yuli Purnama', '1234', 'yuli@example.com', '08123456775', 'Jl. Malioboro No. 1111', NULL, 'CUSTOMER'),
+('Rina Handayani', '1234', 'rina@example.com', '08123456774', 'Jl. Sudirman No. 1212', 'Blok E-3', 'SELLER'),
+('Ahmad Firmansyah', '1234', 'ahmad@example.com', '08123456773', 'Jl. Pahlawan No. 1313', NULL, 'CUSTOMER'),
+('Dewi Kartika', '1234', 'dewi.kartika@example.com', '08123456772', 'Jl. Diponegoro No. 1414', 'Apartemen Cendana, Lantai 6', 'SELLER'),
+('Indra Pratama', '1234', 'indra@example.com', '08123456771', 'Jl. Thamrin No. 1515', NULL, 'CUSTOMER'),
+('Sari Fitriani', '1234', 'sari@example.com', '08123456770', 'Jl. Sudirman No. 1616', 'Blok F-4', 'SELLER');
+
+//warmindo
+INSERT INTO warmindos (name, address, picture)
+VALUES 
+('Warmindo Sentosa', 'Jl. Diponegoro No. 222, Yogyakarta', NULL),
+('Warmindo Selalu Manis', 'Jl. Malioboro No. 333, Yogyakarta', NULL),
+('Warmindo Jaya Makmur', 'Jl. Merdeka No. 444, Yogyakarta', NULL),
+('Warmindo Yogyakarta', 'Jl. Sudirman No. 555, Yogyakarta', NULL),
+('Warmindo Berkah', 'Jl. Ahmad Yani No. 666, Yogyakarta', NULL),
+('Warmindo Pusaka', 'Jl. Gajah Mada No. 777, Yogyakarta', NULL),
+('Warmindo Damai', 'Jl. Pahlawan No. 888, Yogyakarta', NULL),
+('Warmindo Harmoni', 'Jl. Gajah Mada No. 999, Yogyakarta', NULL),
+('Warmindo Sejahtera', 'Jl. Jendral Sudirman No. 1010, Yogyakarta', NULL),
+('Warmindo Bahagia', 'Jl. A. Yani No. 1111, Yogyakarta', NULL);
+
+//menu
+INSERT INTO menus (name, price, picture, warmindoId, categoryId) VALUES 
+-- Menus for Warmindo Sentosa (ID: 1)
+('Nasi Goreng Special', 25000, NULL, 1, 1),('Mie Ayam Bakso', 20000, NULL, 1, 1),('Ayam Goreng', 30000, NULL, 1, 1),('Soto Ayam', 22000, NULL, 1, 1),('Nasi Uduk Komplit', 28000, NULL, 1, 1),
+('Es Teh Manis', 5000, NULL, 1, 2),('Es Jeruk', 6000, NULL, 1, 2),('Es Campur', 12000, NULL, 1, 2),('Es Teler', 15000, NULL, 1, 2),('Es Kelapa Muda', 10000, NULL, 1, 2),
+-- Menus for Warmindo Selalu Manis (ID: 2)
+('Nasi Goreng', 15000, NULL, 2, 1),('Mie Goreng', 12000, NULL, 2, 1),('Bakso Kuah', 18000, NULL, 2, 1),('Capcay Goreng', 20000, NULL, 2, 1),('Ayam Penyet', 25000, NULL, 2, 1),
+('Es Teh Manis', 5000, NULL, 2, 2),('Es Jeruk', 6000, NULL, 2, 2),('Es Campur', 12000, NULL, 2, 2),('Es Teler', 15000, NULL, 2, 2),('Es Kelapa Muda', 10000, NULL, 2, 2),
+-- Menus for Warmindo Jaya Makmur (ID: 3)
+('Bakso Sapi', 25000, NULL, 3, 1),('Soto Betawi', 30000, NULL, 3, 1),('Sate Ayam', 15000, NULL, 3, 1),('Nasi Pecel Lele', 20000, NULL, 3, 1),('Nasi Rames', 22000, NULL, 3, 1),
+('Es Teh Manis', 5000, NULL, 3, 2),('Es Jeruk', 6000, NULL, 3, 2),('Es Campur', 12000, NULL, 3, 2),('Es Teler', 15000, NULL, 3, 2),('Es Kelapa Muda', 10000, NULL, 3, 2),
+-- Menus for Warmindo Yogyakarta (ID: 4)
+('Gudeg', 20000, NULL, 4, 1),('Bakmi Jawa', 25000, NULL, 4, 1),('Nasi Kuning', 18000, NULL, 4, 1),('Liwetan', 30000, NULL, 4, 1),('Sate Klathak', 35000, NULL, 4, 1),
+('Es Teh Manis', 5000, NULL, 4, 2),('Es Jeruk', 6000, NULL, 4, 2),('Es Campur', 12000, NULL, 4, 2),('Es Teler', 15000, NULL, 4, 2),('Es Kelapa Muda', 10000, NULL, 4, 2),
+-- Menus for Warmindo Berkah (ID: 5)
+('Nasi Goreng', 15000, NULL, 5, 1),('Mie Goreng', 12000, NULL, 5, 1),('Bakso Kuah', 18000, NULL, 5, 1),('Capcay Goreng', 20000, NULL, 5, 1),('Ayam Penyet', 25000, NULL, 5, 1),
+('Es Teh Manis', 5000, NULL, 5, 2),('Es Jeruk', 6000, NULL, 5, 2),('Es Campur', 12000, NULL, 5, 2),('Es Teler', 15000, NULL, 5, 2),('Es Kelapa Muda', 10000, NULL, 5, 2),
+-- Menus for Warmindo Pusaka (ID: 6)
+('Nasi Goreng', 15000, NULL, 6, 1),('Mie Goreng', 12000, NULL, 6, 1),('Bakso Kuah', 18000, NULL, 6, 1),('Capcay Goreng', 20000, NULL, 6, 1),('Ayam Penyet', 25000, NULL, 6, 1),
+('Es Teh Manis', 5000, NULL, 6, 2),('Es Jeruk', 6000, NULL, 6, 2),('Es Campur', 12000, NULL, 6, 2),('Es Teler', 15000, NULL, 6, 2),('Es Kelapa Muda', 10000, NULL, 6, 2),
+-- Menus for Warmindo Damai (ID: 7)
+('Nasi Goreng', 15000, NULL, 7, 1),('Mie Goreng', 12000, NULL, 7, 1),('Bakso Kuah', 18000, NULL, 7, 1),('Capcay Goreng', 20000, NULL, 7, 1),('Ayam Penyet', 25000, NULL, 7, 1),
+('Es Teh Manis', 5000, NULL, 7, 2),('Es Jeruk', 6000, NULL, 7, 2),('Es Campur', 12000, NULL, 7, 2),('Es Teler', 15000, NULL, 7, 2),('Es Kelapa Muda', 10000, NULL, 7, 2),
+-- Menus for Warmindo Harmoni (ID: 8)
+('Nasi Goreng', 15000, NULL, 8, 1),('Mie Goreng', 12000, NULL, 8, 1),('Bakso Kuah', 18000, NULL, 8, 1),('Capcay Goreng', 20000, NULL, 8, 1),('Ayam Penyet', 25000, NULL, 8, 1),
+('Es Teh Manis', 5000, NULL, 8, 2),('Es Jeruk', 6000, NULL, 8, 2),('Es Campur', 12000, NULL, 8, 2),('Es Teler', 15000, NULL, 8, 2),('Es Kelapa Muda', 10000, NULL, 8, 2),
+-- Menus for Warmindo Sejahtera (ID: 9)
+('Nasi Goreng', 15000, NULL, 9, 1),('Mie Goreng', 12000, NULL, 9, 1),('Bakso Kuah', 18000, NULL, 9, 1),('Capcay Goreng', 20000, NULL, 9, 1),('Ayam Penyet', 25000, NULL, 9, 1),
+('Es Teh Manis', 5000, NULL, 9, 2),('Es Jeruk', 6000, NULL, 9, 2),('Es Campur', 12000, NULL, 9, 2),('Es Teler', 15000, NULL, 9, 2),('Es Kelapa Muda', 10000, NULL, 9, 2),
+-- Menus for Warmindo Bahagia (ID: 10)
+('Nasi Goreng', 15000, NULL, 10, 1),('Mie Goreng', 12000, NULL, 10, 1),('Bakso Kuah', 18000, NULL, 10, 1),('Capcay Goreng', 20000, NULL, 10, 1),('Ayam Penyet', 25000, NULL, 10, 1),
+('Es Teh Manis', 5000, NULL, 10, 2),('Es Jeruk', 6000, NULL, 10, 2),('Es Campur', 12000, NULL, 10, 2),('Es Teler', 15000, NULL, 10, 2),('Es Kelapa Muda', 10000, NULL, 10, 2);
