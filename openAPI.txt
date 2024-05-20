@@ -1,0 +1,1537 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "User Management API",
+    "description": "API untuk manajemen pengguna"
+  },
+  "basePath": "/",
+  "paths": {
+    "api/users/register": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Register a new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                },
+                "phoneNumber": {
+                  "type": "string",
+                  "example": "1234567890"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Register Successfull!"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or email already registered"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "api/users/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Login to user account",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "john@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Successfull!"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or wrong email/password"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "api/users/fetch-by-token": {
+      "get": {
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          }
+        ],
+        "summary": "Get user data by token",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetch user data"
+                },
+                "user": {
+                  "type": "object",
+                  "example": {
+                    "id": 1,
+                    "fullName": "John Doe",
+                    "email": "john@example.com",
+                    "phoneNumber": "1234567890",
+                    "role": "CUSTOMER"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or user not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "api/users/edit-profile": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Edit user profile",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated profile data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "profilePicture": {
+                  "type": "string",
+                  "format": "url",
+                  "example": "https://example.com/profile.jpg"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully edit user data"
+                },
+                "user": {
+                  "type": "object",
+                  "example": {
+                    "id": 1,
+                    "fullName": "John Doe",
+                    "profilePicture": "https://example.com/profile.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or user not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "api/users/edit-password": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Edit user password",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated password data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "oldPassword": {
+                  "type": "string",
+                  "example": "password123"
+                },
+                "newPassword": {
+                  "type": "string",
+                  "example": "newpassword456"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "newpassword456",
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully edit password"
+                },
+                "user": {
+                  "type": "object",
+                  "example": {
+                    "id": 1,
+                    "fullName": "John Doe"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, wrong old password, or password confirmation mismatch"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "api/users/edit-user-address": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Edit user address",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated address data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address1": {
+                  "type": "string",
+                  "example": "123 Main St"
+                },
+                "address2": {
+                  "type": "string",
+                  "example": "Apt 101"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Address updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully edit user data"
+                },
+                "user": {
+                  "type": "object",
+                  "example": {
+                    "id": 1,
+                    "fullName": "John Doe",
+                    "address1": "123 Main St",
+                    "address2": "Apt 101"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or user not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "api/warmindos/fetch-all": {
+      "get": {
+        "tags":["Warmindo"],
+        "summary": "Get All Warmindo",
+        "description": "Mengambil semua data Warmindo",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetch all warmindo data"
+                },
+                "warmindo": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Warmindo A"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "Jl. Raya No. 123"
+                      },
+                      "picture": {
+                        "type": "string",
+                        "example": "https://example.com/warmindo.jpg"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "api/warmindos/add-warmindo": {
+      "post": {
+        "tags":["Warmindo"],
+        "summary": "Add Warmindo",
+        "description": "Menambahkan data Warmindo baru",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Warmindo A"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Jl. Raya No. 123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Add Warmindo Successfull!"
+                },
+                "warmindo": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Warmindo A"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "Jl. Raya No. 123"
+                      },
+                      "userId": {
+                        "type": "integer",
+                        "example": "1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/warmindos/{id}": {
+      "get": {
+        "tags":["Warmindo"],
+        "summary": "Get Warmindo by ID",
+        "description": "Mengambil data Warmindo berdasarkan ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "/paths/warmindo/get/responses/200/schema"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags":["Warmindo"],
+        "summary": "Delete Warmindo by ID",
+        "description": "Menghapus data Warmindo berdasarkan ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully delete warmindo data with id {id}"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags":["Warmindo"],
+        "summary": "Update Warmindo by ID",
+        "description": "Memperbarui data Warmindo berdasarkan ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Updated Warmindo A"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Updated Address"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully update warmindo data with id {id}"
+                },
+                "updated": {
+                  "$ref": "/paths/warmindo/get/responses/200/schema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/menus/fetch-all": {
+      "get": {
+        "tags":["Menu"],
+        "summary": "Get All Menu",
+        "description": "Mengambil semua data Menu",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetch all menu data"
+                },
+                "menus": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Nasi Goreng"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 15000
+                      },
+                      "picture": {
+                        "type": "string",
+                        "example": "https://example.com/menu.jpg"
+                      },
+                      "warmindo": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Warmindo A"
+                          }
+                        }
+                      },
+                      "category": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Makanan"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/menus/register":{
+      "post": {
+        "tags":["Menu"],
+        "summary": "Add Menu",
+        "description": "Menambahkan data Menu baru",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nasi Goreng"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 15000
+                },
+                "id_category": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Add new menu successful!"
+                },
+                "currentMenu": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Nasi Goreng"
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 15000
+                    },
+                    "warmindoId": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "categoryId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "api/menus/{id}": {
+      "get": {
+        "tags":["Menu"],
+        "summary": "Get Menu by ID",
+        "description": "Mengambil data Menu berdasarkan ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetch menu data with id 1"
+                },
+                "currentMenu": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Nasi Goreng"
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 25000
+                    },
+                    "picture": {
+                      "type": "string",
+                      "example": "http://example.com/nasigoreng.jpg"
+                    },
+                    "Warmindo": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Warmindo ABC"
+                        }
+                      }
+                    },
+                    "Category": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Makanan"
+                        }
+                      }
+                    }
+                  },
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags":["Menu"],
+        "summary": "Delete Menu by ID",
+        "description": "Menghapus data Menu berdasarkan ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully delete menu"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags":["Menu"],
+        "summary": "Update Menu by ID",
+        "description": "Memperbarui data Menu berdasarkan ID",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Updated Nasi Goreng"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 20000
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully update menu data with id {id}"
+                },
+                "updated": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Updated Nasi Goreng"
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 20000
+                    },
+                    "picture": {
+                      "type": "string",
+                      "example": "http://example.com/updated_nasigoreng.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "api/menus/fetch-all/{warmindoId}": {
+      "get": {
+        "tags":["Menu"],
+        "summary": "Get Menu by Warmindo ID",
+        "description": "Mengambil data Menu berdasarkan ID Warmindo",
+        "parameters": [
+          {
+            "name": "warmindoId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetch all menu data from warmindo with id 123"
+                },
+                "menus": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Nasi Goreng"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 25000
+                      },
+                      "picture": {
+                        "type": "string",
+                        "example": "http://example.com/nasigoreng.jpg"
+                      },
+                      "Warmindo": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Warmindo ABC"
+                          }
+                        }
+                      },
+                      "Category": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Makanan"
+                          }
+                        }
+                      }
+                    },
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/carts/getcart": {
+      "get": {
+        "tags":["Cart"],
+        "summary": "Get Cart by User ID",
+        "description": "Retrieve all items in the cart for a specific user.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "currentCart": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "menu": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "warmindo": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/carts/postcart": {
+      "post": {
+        "tags":["Cart"],
+        "summary": "Add Menu to Cart",
+        "description": "Add a new menu item to the user's cart.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Menu item to add to cart",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_menu": {
+                  "type": "integer"
+                },
+                "quantity": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "currentCartProduct": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/carts/{menu_id}": {
+      "delete": {
+        "tags":["Cart"],
+        "summary": "Delete Menu in Cart",
+        "description": "Remove a menu item from the user's cart.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "menu_id",
+            "in": "path",
+            "description": "ID of the menu",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags":["Cart"],
+        "summary": "Update Menu in Cart",
+        "description": "Update the quantity of a menu item in the user's cart.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          },
+          {
+            "name": "menu_id",
+            "in": "path",
+            "description": "ID of the menu",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New quantity for the menu item",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "updatedCartProduct": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/orders/getorder": {
+      "get": {
+        "tags": ["Order"],
+        "summary": "Get orders by user ID",
+        "description": "Retrieve orders belonging to a specific user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetch Order data with userId 123"
+                },
+                "currentOrderItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "orderId": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "menuId": {
+                        "type": "integer",
+                        "format": "int64"
+                      }
+                    }
+                  }
+                },
+                "currentOrder": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "total": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "userId": {
+                        "type": "integer",
+                        "format": "int64"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or user not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/orders/postorder": {
+      "post": {
+        "tags": ["Order"],
+        "summary": "Place a new order",
+        "description": "Place a new order with items from the user's cart",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token",
+            "required": true,
+            "type": "string",
+            "format": "Bearer <token>"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Order placed successfully"
+                },
+                "order": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "userId": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                },
+                "OrderItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "orderId": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "menuId": {
+                        "type": "integer",
+                        "format": "int64"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or user not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
+
+
